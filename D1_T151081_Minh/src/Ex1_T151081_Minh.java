@@ -60,8 +60,10 @@ public class Ex1_T151081_Minh extends JFrame{
 				char[] passArray = txtPassword.getPassword();
 				String password = new String(passArray);
 				if(userName.equals("admin")&& password.equals("root")){
-					JOptionPane.showMessageDialog(Ex1_T151081_Minh.this,"Hello"+userName);
-					
+				//JOptionPane.showMessageDialog(Ex1_T151081_Minh.this,"Hello"+userName);
+					Mainwindow mainGUI = new Mainwindow();
+					mainGUI.setVisible(true);
+					Ex1_T151081_Minh.this.setVisible(false);
 				}else{
 					JOptionPane.showMessageDialog(Ex1_T151081_Minh.this,("hihi bien :3"+password));
 				}

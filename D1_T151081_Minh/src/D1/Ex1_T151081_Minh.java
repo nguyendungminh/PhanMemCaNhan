@@ -16,6 +16,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Ex1_T151081_Minh extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// Field
 	JLabel lblUsername;
 	JTextField txtUsername;

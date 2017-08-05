@@ -114,6 +114,7 @@ public class Ex1_T151081_Minh extends JFrame {
 		gui.setVisible(true);
 		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gui.setSize(215,300);
+		gui.setTitle("AHIHI");
 		
 		
 

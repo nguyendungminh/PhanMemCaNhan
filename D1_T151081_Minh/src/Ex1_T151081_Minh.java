@@ -109,7 +109,7 @@ txtPassword.addKeyListener(new KeyListener() {
 		Ex1_T151081_Minh gui = new Ex1_T151081_Minh();
 		gui.setVisible(true);
 		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gui.setSize(400,300);
+		gui.setSize(215,300);
 		
 	}
 	private void login() {

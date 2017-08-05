@@ -22,6 +22,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.UIManager;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class CreatAccount extends JFrame {
 
@@ -207,6 +208,11 @@ public class CreatAccount extends JFrame {
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 23));
 		lblNewLabel_7.setBounds(33, 475, 404, 53);
 		panel.add(lblNewLabel_7);
+		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon("D:\\Minh\\user.png"));
+		label.setBounds(71, 148, 343, 289);
+		panel.add(label);
 		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

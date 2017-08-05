@@ -49,6 +49,7 @@ public class Mainwindow extends JFrame {
 		setContentPane(contentPane);
 		// to bit mang hinh :3
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setTitle("hihidongoc");
 	}
 
 }

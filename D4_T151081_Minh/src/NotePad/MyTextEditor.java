@@ -22,7 +22,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 /**
- * @author US
+ * @author Minh
  *
  */
 public class MyTextEditor extends JFrame {
@@ -37,6 +37,7 @@ public class MyTextEditor extends JFrame {
 	JTextArea txaContent;
 	JScrollPane scrPane;
 
+	
 	/**
 	 * @param args
 	 */

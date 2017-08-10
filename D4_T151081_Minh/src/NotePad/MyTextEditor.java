@@ -22,7 +22,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 /**
- * @author Minh
+ * @author Minh Nguyen
  *
  */
 public class MyTextEditor extends JFrame {

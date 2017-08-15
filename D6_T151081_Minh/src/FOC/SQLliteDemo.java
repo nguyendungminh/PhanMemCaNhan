@@ -13,7 +13,7 @@ import org.omg.CORBA.PRIVATE_MEMBER;
  */
 
 /**
- * @author US
+ * @author Minh
  *
  */
 public class SQLliteDemo {

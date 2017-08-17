@@ -1,4 +1,4 @@
-package FOC;
+package gui;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.util.Vector;
@@ -6,6 +6,11 @@ import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import da.SQLiteDB;
+import dataobject.Brand;
+import dataobject.Category;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.AbstractButton;
@@ -17,13 +22,13 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ThemSanPham extends JFrame {
+public class AddProduct extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
-	private SQLIteDB salesDB;
+	private SQLiteDB salesDB;
 	private AbstractButton comboBox;
 
 	/**
@@ -33,7 +38,7 @@ public class ThemSanPham extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ThemSanPham frame = new ThemSanPham();
+					AddProduct frame = new AddProduct();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,8 +50,8 @@ public class ThemSanPham extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ThemSanPham() {
-		salesDB = new SQLIteDB();
+	public AddProduct() {
+		salesDB = new SQLiteDB();
 		salesDB.getCategories();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 338, 258);
@@ -116,7 +121,7 @@ public class ThemSanPham extends JFrame {
 				int unitinStock = Integer.parseInt(textField_2.getText());
 				Category selectedCat = (Category)comboBox.getSelectedItem();
 				int catId= selectedCat.getCategoryId();
-		 salesDB.insert(productName, catId	, unitPrice, unitinStock);
+		 salesDB.insert(pCode, PName, categoryid, brandid, unitofmeasure, uniprice, description);
 				salesDB.getAllProducts();
 				
 			}

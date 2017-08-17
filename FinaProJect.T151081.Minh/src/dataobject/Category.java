@@ -1,4 +1,4 @@
-package FOC;
+package dataobject;
 
 public class Category {
 	private int categoryId;

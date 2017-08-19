@@ -6,7 +6,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import da.BrandDA;
+import da.CategoryDA;
+import da.ProductDA;
 import da.SQLiteDB;
+import da.UnitofmeasureDA;
 import dataobject.Brand;
 import dataobject.Category;
 import dataobject.Uniofmeasure;
@@ -25,13 +29,22 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 
-public class AddProduct extends JFrame {
+public class AddProduct extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private JTextField textFieldName;
 	private SQLiteDB foc2warehouseDb;
 	private JTextField textFieldPrice;
 	private JTextField textFieldProductCode;
+	private ProductDA productDA;
+	private BrandDA brandDA;
+	private CategoryDA catDA;
+	private UnitofmeasureDA unitDA;
+	private JButton btnOk;
+	private JButton btnCancel;
+	private JComboBox comboBox_Ca;
+	private JComboBox comboBox_Measure;
+	private JComboBox comboBox_Brand;
 
 	/**
 	 * Launch the application.
@@ -53,6 +66,12 @@ public class AddProduct extends JFrame {
 	 * Create the frame.
 	 */
 	public AddProduct() {
+		productDA = new ProductDA();
+		catDA = new CategoryDA();
+		brandDA = new BrandDA();
+		unitDA = new UnitofmeasureDA();
+		
+		
 		setType(Type.UTILITY);
 		
 		foc2warehouseDb = new SQLiteDB();
@@ -69,7 +88,7 @@ public class AddProduct extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblAddProduct = new JLabel("Add Product");
-		lblAddProduct.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblAddProduct.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		lblAddProduct.setBounds(97, 11, 118, 32);
 		contentPane.add(lblAddProduct);
 		
@@ -86,24 +105,24 @@ public class AddProduct extends JFrame {
 		lblNewLabel_1.setBounds(25, 112, 86, 14);
 		contentPane.add(lblNewLabel_1);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.addItemListener(new ItemListener() {
+		comboBox_Ca = new JComboBox();
+		comboBox_Ca.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				//System.out.println(comboBox.getSelectedItem());
-				Category cat = (Category)comboBox.getSelectedItem();
+				Category cat = (Category)comboBox_Ca.getSelectedItem();
 				
 			}
 		});
 		
 		
 		Vector<Category> catList = foc2warehouseDb.getAllCategories();
-		comboBox.setModel(new DefaultComboBoxModel(catList));
+		comboBox_Ca.setModel(new DefaultComboBoxModel(catList));
 		
-		comboBox.setBounds(128, 113, 152, 20);
-		contentPane.add(comboBox);
+		comboBox_Ca.setBounds(128, 113, 152, 20);
+		contentPane.add(comboBox_Ca);
 		
 		JLabel lblPrice = new JLabel("Price");
-		lblPrice.setBounds(25, 212, 46, 14);
+		lblPrice.setBounds(25, 209, 46, 14);
 		contentPane.add(lblPrice);
 		
 		textFieldPrice = new JTextField();
@@ -119,32 +138,21 @@ public class AddProduct extends JFrame {
 		textFieldProductCode.setBounds(128, 54, 152, 20);
 		contentPane.add(textFieldProductCode);
 		textFieldProductCode.setColumns(10);
-		
-		JButton btnOk = new JButton("Ok");
-		btnOk.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				String productname = textFieldName.getText();
-				double unitUnitprice = Double.parseDouble(textFieldPrice.getText());
-				int unitStock = Integer.parseInt(textFieldProductCode.getText());
-				Category selectedCat = (Category) comboBox.getSelectedItem();
-				int catId = selectedCat.getCategoryId();
-				
-				//salesDb.insert(productname, catId, unitUnitprice, unitStock);
-				foc2warehouseDb.getAllProducts();
-			}
-		});
+		btnOk = new JButton("Ok");
 		btnOk.setBounds(35, 245, 89, 23);
+		btnOk.addActionListener(this);
 		contentPane.add(btnOk);
-		
-		JButton btnCancel = new JButton("Cancel");
+	
+		btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(171, 245, 89, 23);
+		btnCancel.addActionListener(this);
 		contentPane.add(btnCancel);
 		
 		JLabel lblUnitOfMeasure = new JLabel("Unit of Measure");
 		lblUnitOfMeasure.setBounds(25, 143, 93, 14);
 		contentPane.add(lblUnitOfMeasure);
 		
-		JComboBox comboBox_Measure = new JComboBox();
+		comboBox_Measure = new JComboBox();
 		comboBox_Measure.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				Uniofmeasure uom = (Uniofmeasure)comboBox_Measure.getSelectedItem();
@@ -161,7 +169,7 @@ public class AddProduct extends JFrame {
 		lblBrand.setBounds(25, 174, 86, 14);
 		contentPane.add(lblBrand);
 		
-		JComboBox comboBox_Brand = new JComboBox();
+		comboBox_Brand = new JComboBox();
 		comboBox_Brand.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				Brand bra = (Brand)comboBox_Brand.getSelectedItem();
@@ -170,8 +178,35 @@ public class AddProduct extends JFrame {
 		
 		Vector<Brand> BrandList = foc2warehouseDb.getAllBrands();
 		comboBox_Brand.setModel(new DefaultComboBoxModel(BrandList));
-		
 		comboBox_Brand.setBounds(128, 175, 152, 20);
 		contentPane.add(comboBox_Brand);
+		
+		
+	}
+		
+	
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==btnOk){
+			AddProduct();
+			foc2warehouseDb.getAllProducts();
+		}else if (e.getSource()==btnCancel){
+			AddProduct.this.dispose();// dispose de thoat
+		}
+		
+	}
+
+	private void AddProduct() {
+		String productname = textFieldName.getText();
+		String productcode = textFieldProductCode.getText();
+		double unitUnitprice = Double.parseDouble(textFieldPrice.getText());
+		int unitStock = Integer.parseInt(textFieldProductCode.getText());
+		Category selectedCat = (Category) comboBox_Ca.getSelectedItem();
+		Brand selectedBra = (Brand) comboBox_Brand.getSelectedItem();
+		Uniofmeasure selectUnit= (Uniofmeasure) comboBox_Measure.getSelectedItem();
+		String BraId = selectedBra.getBrandName();
+		String MeaId = selectUnit.getName();
+		int catId = selectedCat.getCategoryId();
 	}
 }

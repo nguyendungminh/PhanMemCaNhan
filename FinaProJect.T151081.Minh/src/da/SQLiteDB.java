@@ -37,6 +37,13 @@ public class SQLiteDB {
 						rs.getInt("productid"),
 						rs.getInt("productcode"),
 						rs.getString("productname"),
+						rs.getInt("categoryid"),
+						rs.getInt("brandid"),
+						rs.getInt("unitofmeasureid"),
+						rs.getDouble("price"),
+						rs.getString("descriton"),
+					
+						
 						rs.getDouble("unitprice"));
 						
 				
@@ -47,19 +54,20 @@ public class SQLiteDB {
 		}
 	}
 	
-	public void insert (String pCode, String pName, int categoryid, int brandid,  int unitofmeasureid, double price, String description){
-		String sql = "INSERT INTO products(productcode, productname, categoryid, brandid, unitofmeasureid, price, description)"
-				+ "VALUES(?,?,?,?,?,?,?)";
+	public void insert (int ID,String pCode, String pName, int categoryid, int brandid,  int unitofmeasureid, double price, String description){
+		String sql = "INSERT INTO products(productid,productcode, productname, categoryid, brandid, unitofmeasureid, price, description)"
+				+ "VALUES(?,?,?,?,?,?,?,?)";
 		
 		try (Connection conn = connect();
 				PreparedStatement pstmt = conn.prepareStatement(sql)){
-			pstmt.setString(1, pCode);
-			pstmt.setString(2, pName);
-			pstmt.setInt(3, categoryid);
-			pstmt.setInt(4, brandid);
-			pstmt.setInt(5, unitofmeasureid);
-			pstmt.setDouble(6, price);
-			pstmt.setString(7, description);
+			pstmt.setInt(1,ID);
+			pstmt.setString(2, pCode);
+			pstmt.setString(3, pName);
+			pstmt.setInt(4, categoryid);
+			pstmt.setInt(5, brandid);
+			pstmt.setInt(6, unitofmeasureid);
+			pstmt.setDouble(7, price);
+			pstmt.setString(8, description);
 			pstmt.executeUpdate();
 		}
 		catch (SQLException e) {
@@ -68,24 +76,24 @@ public class SQLiteDB {
 		}
 	}
 	
-	public void update(String name, int categoryid, double pPrice, int pUnitInStock, int productid){
-		String sql = "UPDATE products set productname = ?, categoryid = ?, unitprice = ?, unitinstock = ? "
-				+ "WHERE(productid = ?)";
-		
-		try (Connection conn = connect();
-				PreparedStatement pstmt = conn.prepareStatement(sql)){
-			pstmt.setString(1, name);
-			pstmt.setInt(2, categoryid);
-			pstmt.setDouble(3, pPrice);
-			pstmt.setInt(4, pUnitInStock);
-			pstmt.setInt(5, productid);
-			pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			// TODO: handle exception
-			System.out.println(e.getMessage());
-		}
-	}
+//	public void update(String name, int categoryid, double pPrice, int pUnitInStock, int productid){
+//		String sql = "UPDATE products set productname = ?, categoryid = ?, unitprice = ?, unitinstock = ? "
+//				+ "WHERE(productid = ?)";
+//		
+//		try (Connection conn = connect();
+//				PreparedStatement pstmt = conn.prepareStatement(sql)){
+//			pstmt.setString(1, name);
+//			pstmt.setInt(2, categoryid);
+//			pstmt.setDouble(3, pPrice);
+//			pstmt.setInt(4, pUnitInStock);
+//			pstmt.setInt(5, productid);
+//			pstmt.executeUpdate();
+//			
+//		} catch (SQLException e) {
+//			// TODO: handle exception
+//			System.out.println(e.getMessage());
+//		}
+//	}
 	
 	public void delete( int productid){
 		String sql = "DELETE FROM products WHERE productid = ? ";

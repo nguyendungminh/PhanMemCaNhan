@@ -49,7 +49,7 @@ public class ProductList extends JFrame implements ActionListener{
 	public ProductList() {
 		setTitle("Product Management");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 685, 337);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -67,14 +67,26 @@ public class ProductList extends JFrame implements ActionListener{
 		contentPane.add(panelTop, BorderLayout.NORTH);
 		
 		btnAdd = new JButton("Add");
-		btnAdd.setBounds(0, 0, 62, 23);
+		btnAdd.setBounds(0, 0, 123, 23);
 		btnAdd.addActionListener(this);
 		panelTop.add(btnAdd);
 		
 		btnUpdate = new JButton("Update");
-		btnUpdate.setBounds(72, 0, 81, 23);
+		btnUpdate.setBounds(133, 0, 123, 23);
 		btnUpdate.addActionListener(this);
 		panelTop.add(btnUpdate);
+		
+		JButton btnCategory = new JButton("Category");
+		btnCategory.setBounds(266, 0, 123, 23);
+		panelTop.add(btnCategory);
+		
+		JButton btnBrand = new JButton("Brand");
+		btnBrand.setBounds(399, 0, 123, 23);
+		panelTop.add(btnBrand);
+		
+		JButton btnMeasure = new JButton("UnitofMeasure");
+		btnMeasure.setBounds(532, 0, 123, 23);
+		panelTop.add(btnMeasure);
 	}
 
 	public void getProductList() {

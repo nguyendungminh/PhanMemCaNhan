@@ -7,30 +7,28 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
 
-import dataobject.Uniofmeasure;
+import dataobject.Brand;
+import dataobject.UnitOfMeasure;
 
-public class UnitofmeasureDA extends WHConnection{
+public class UnitOfMeasureDA extends WHConnection {
 	
-	public Vector<Uniofmeasure> getAllUnitOfMeasure(){
+	public Vector<UnitOfMeasure> getUnitOfMeasure() {
 		String sql = "SELECT * FROM unitofmeasure";
-		Vector<Uniofmeasure> UnitofmeasureList = new Vector<>();
+		Vector<UnitOfMeasure> unitList = new Vector<>();
 		try (Connection conn = connect();
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql)) {
+
+			// loop through the result set
 			while (rs.next()) {
-				
-				Uniofmeasure uom = new Uniofmeasure(rs.getInt("id"),
+				UnitOfMeasure unit = new UnitOfMeasure(rs.getInt("id"),
 						rs.getString("unitname"));
-				
-				UnitofmeasureList.add(uom);
-				
-				
+				unitList.add(unit);
 			}
-			return UnitofmeasureList;
+			return unitList;
 		} catch (SQLException e) {
-			// TODO: handle exception
 			System.out.println(e.getMessage());
 		}
-		return UnitofmeasureList;
+		return unitList;
 	}
 }

@@ -21,9 +21,10 @@ import da.ProductDA;
 import da.UnitOfMeasureDA;
 import dataobject.Brand;
 import dataobject.Category;
+import dataobject.Product;
 import dataobject.UnitOfMeasure;
 
-public class AddProduct extends JFrame implements ActionListener {
+public class UpdateProduct extends JFrame implements ActionListener {
 
 	/**
 	 * 
@@ -44,6 +45,8 @@ public class AddProduct extends JFrame implements ActionListener {
 	private JComboBox<Category> cmbCategory;
 	private JComboBox<UnitOfMeasure> cmbUnit;
 	private JComboBox<Brand> cmbBrand;
+	
+	public int productID = 1;
 
 	/**
 	 * Launch the application.
@@ -52,7 +55,7 @@ public class AddProduct extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AddProduct frame = new AddProduct();
+					UpdateProduct frame = new UpdateProduct(1);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -64,13 +67,21 @@ public class AddProduct extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public AddProduct() {
+	public UpdateProduct(int pid) {
+		productID = pid;
 		productDA = new ProductDA();
 		catDA = new CategoryDA();
 		brandDA = new BrandDA();
 		unitDA = new UnitOfMeasureDA();
 		
 		initGUI();
+		
+		Product p = productDA.getProduct(productID);
+		txtProductCode.setText(p.getProductCode());
+		txtName.setText(p.getProductName());
+		txtUnitPrice.setText(p.getUnitPrice()+"");
+		cmbCategory.setSelectedIndex(3);
+		
 	}
 
 	private void initGUI() {
@@ -114,13 +125,13 @@ public class AddProduct extends JFrame implements ActionListener {
 		txtProductCode.setBounds(137, 68, 173, 20);
 		contentPane.add(txtProductCode);
 		
-		JLabel lblAddProduct = new JLabel("Add Product");
+		JLabel lblAddProduct = new JLabel("Update Product");
 		lblAddProduct.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAddProduct.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblAddProduct.setBounds(39, 27, 229, 14);
 		contentPane.add(lblAddProduct);
 		
-		btnAdd = new JButton("Add");
+		btnAdd = new JButton("Update");
 		btnAdd.setBounds(61, 272, 89, 23);
 		contentPane.add(btnAdd);
 		btnAdd.addActionListener(this);
@@ -163,7 +174,7 @@ public class AddProduct extends JFrame implements ActionListener {
 			addProduct();
 			productDA.getAllProducts();
 		}else if(e.getSource() == btnCancel){
-			AddProduct.this.dispose();
+			UpdateProduct.this.dispose();
 		}
 		
 	}

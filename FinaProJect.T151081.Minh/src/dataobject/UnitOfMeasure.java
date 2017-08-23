@@ -1,11 +1,11 @@
 package dataobject;
 
-public class Brand {
+public class UnitOfMeasure {
 	private int id;
 	private String name;
 	
-	public Brand(){}
-	public Brand(int id, String name) {
+	public UnitOfMeasure(){}
+	public UnitOfMeasure(int id, String name) {
 		super();
 		this.id = id;
 		this.name = name;

@@ -88,7 +88,7 @@ public class UpdateCategory extends JFrame implements ActionListener {
 	private void initGUI() {
 		setResizable(false);
 		setTitle("Update Category - ThanhPhuc");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 339, 346);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

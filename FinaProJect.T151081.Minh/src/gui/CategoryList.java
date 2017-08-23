@@ -55,7 +55,7 @@ public class CategoryList extends JFrame implements ActionListener{
 	 */
 	public CategoryList() {
 		setTitle("Category Management");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -74,12 +74,12 @@ public class CategoryList extends JFrame implements ActionListener{
 		contentPane.add(panelTop, BorderLayout.NORTH);
 		
 		btnAdd = new JButton("Add");
-		btnAdd.setBounds(0, 0, 62, 23);
+		btnAdd.setBounds(0, 0, 93, 23);
 		btnAdd.addActionListener(this);
 		panelTop.add(btnAdd);
 		
 		btnUpdate = new JButton("Update");
-		btnUpdate.setBounds(72, 0, 81, 23);
+		btnUpdate.setBounds(103, 0, 113, 23);
 		btnUpdate.addActionListener(this);
 		panelTop.add(btnUpdate);
 	}

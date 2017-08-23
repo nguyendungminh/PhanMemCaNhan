@@ -94,15 +94,14 @@ public class ProductList extends JFrame implements ActionListener{
 	}
 
 	private void updateProduct() {
-		//Lấy số thứ tự của dòng đang được chọn
+		
 		int selectedRowIndex = tableProduct.getSelectedRow();
-		if(selectedRowIndex != -1){ // Nếu có dòng được chọn (không có chọn dòng nào thì trả về -1
-			//Lấy giá trị của một cột nào đó trong dòng được chọn (trường hợp này là lấy cột 0, chứa productid)
+		if(selectedRowIndex != -1){ 
 			int selectedProductID = (int) tableProduct.getModel().getValueAt(selectedRowIndex, 0);
-			//Hiển thị giao diện update cho sản phẩm có mã được chọn
+			
 			UpdateProduct updateGUI = new UpdateProduct(selectedProductID);
 			updateGUI.setVisible(true);
-			//TODO: tìm hiểu cách hiển thị danh sách sản phẩm sau khi cập nhật
+			
 		}
 				
 	}
@@ -110,6 +109,6 @@ public class ProductList extends JFrame implements ActionListener{
 	private void addProduct() {
 		AddProduct addGui = new AddProduct();
 		addGui.setVisible(true);
-		//TODO: tìm hiểu cách hiển thị danh sách sản phẩm sau khi thêm sản phẩm mới 
+		
 	}
 }

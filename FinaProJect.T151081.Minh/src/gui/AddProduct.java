@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import da.BrandDA;
 import da.CategoryDA;
@@ -22,6 +23,8 @@ import da.UnitOfMeasureDA;
 import dataobject.Brand;
 import dataobject.Category;
 import dataobject.UnitOfMeasure;
+import gui.ProductList;
+
 
 public class AddProduct extends JFrame implements ActionListener {
 
@@ -44,6 +47,7 @@ public class AddProduct extends JFrame implements ActionListener {
 	private JComboBox<Category> cmbCategory;
 	private JComboBox<UnitOfMeasure> cmbUnit;
 	private JComboBox<Brand> cmbBrand;
+	
 
 	/**
 	 * Launch the application.
@@ -162,11 +166,17 @@ public class AddProduct extends JFrame implements ActionListener {
 		if(e.getSource() == btnAdd){
 			addProduct();
 			productDA.getAllProducts();
+//			DefaultTableModel dm = (DefaultTableModel)gui.ProductList.tableProduct.getModel();
+//			dm.fireTableDataChanged();
+//			gui.ProductList.tableProduct.setModel(dm);
+			productDA = new ProductDA();
+			DefaultTableModel model = productDA.getProducts();
+			gui.ProductList.tableProduct.setModel(model);
+			
 		}else if(e.getSource() == btnCancel){
 			AddProduct.this.dispose();
 		}
-		
-	}
+			}
 
 	private void addProduct() {
 		String productCode = txtProductCode.getText();

@@ -21,7 +21,7 @@ import javax.swing.ImageIcon;
 public class ProductList extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
-	private JTable tableProduct;
+	public static JTable tableProduct;
 	ProductDA productDA;
 	private JPanel panelTop;
 	private JButton btnUpdate;
@@ -77,16 +77,16 @@ public class ProductList extends JFrame implements ActionListener{
 		panelTop.add(btnUpdate);
 	}
 
-	private void getProductList() {
+	public void getProductList() {
 		productDA = new ProductDA();
 		DefaultTableModel model = productDA.getProducts();
 		tableProduct.setModel(model);
-	}
-
+	} 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnAdd){
 			addProduct();
+			
 		}else if(e.getSource() == btnUpdate){
 			updateProduct();
 		}
@@ -108,7 +108,6 @@ public class ProductList extends JFrame implements ActionListener{
 
 	private void addProduct() {
 		AddProduct addGui = new AddProduct();
-		addGui.setVisible(true);
-		
+		addGui.setVisible(true);		
 	}
 }

@@ -27,7 +27,7 @@ import dataobject.UnitOfMeasure;
 public class UpdateProduct extends JFrame implements ActionListener {
 
 	/**
-	 * 
+	 * das
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

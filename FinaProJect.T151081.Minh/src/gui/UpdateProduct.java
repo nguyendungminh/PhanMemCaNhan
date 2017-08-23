@@ -10,10 +10,12 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import da.BrandDA;
 import da.CategoryDA;
@@ -40,7 +42,7 @@ public class UpdateProduct extends JFrame implements ActionListener {
 	private BrandDA brandDA;
 	private UnitOfMeasureDA unitDA;
 	
-	private JButton btnAdd;
+	private JButton btnUpdate;
 	private JButton btnCancel;
 	private JComboBox<Category> cmbCategory;
 	private JComboBox<UnitOfMeasure> cmbUnit;
@@ -131,10 +133,10 @@ public class UpdateProduct extends JFrame implements ActionListener {
 		lblAddProduct.setBounds(39, 27, 229, 14);
 		contentPane.add(lblAddProduct);
 		
-		btnAdd = new JButton("Update");
-		btnAdd.setBounds(61, 272, 89, 23);
-		contentPane.add(btnAdd);
-		btnAdd.addActionListener(this);
+		btnUpdate = new JButton("Update");
+		btnUpdate.setBounds(61, 272, 89, 23);
+		contentPane.add(btnUpdate);
+		btnUpdate.addActionListener(this);
 		
 		btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(161, 272, 89, 23);
@@ -170,9 +172,13 @@ public class UpdateProduct extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == btnAdd){
+		if(e.getSource() == btnUpdate){
 			addProduct();
 			productDA.getAllProducts();
+			JOptionPane.showMessageDialog(this,"add completed");
+			productDA = new ProductDA();
+			DefaultTableModel model = productDA.getProducts();
+			gui.ProductList.tableProduct.setModel(model);
 		}else if(e.getSource() == btnCancel){
 			UpdateProduct.this.dispose();
 		}
@@ -190,6 +196,6 @@ public class UpdateProduct extends JFrame implements ActionListener {
 		int brandId = selectedBrand.getId();
 		int unitId = selectedUnit.getId();
 		
-		productDA.insert(productCode, productName, catId, brandId, unitId, unitPrice, "");
+		productDA.update(productCode, productName, catId, brandId, unitId, unitPrice, productID);
 	}
 }

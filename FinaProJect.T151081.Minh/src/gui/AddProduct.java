@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -169,6 +170,7 @@ public class AddProduct extends JFrame implements ActionListener {
 //			DefaultTableModel dm = (DefaultTableModel)gui.ProductList.tableProduct.getModel();
 //			dm.fireTableDataChanged();
 //			gui.ProductList.tableProduct.setModel(dm);
+			JOptionPane.showMessageDialog(this,"add completed");
 			productDA = new ProductDA();
 			DefaultTableModel model = productDA.getProducts();
 			gui.ProductList.tableProduct.setModel(model);

@@ -90,7 +90,14 @@ public class Management extends JFrame {
 		});
 		btnUnitofMeasure.setBounds(10, 113, 155, 23);
 		contentPane.add(btnUnitofMeasure);
-	}
 		
-	
+		JButton btnUser = new JButton("User");
+		btnUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new UserList().setVisible(true);
+			}
+		});
+		btnUser.setBounds(175, 113, 157, 23);
+		contentPane.add(btnUser);
+	}
 }

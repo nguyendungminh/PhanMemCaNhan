@@ -17,25 +17,23 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import da.BrandDA;
 import da.CategoryDA;
 import da.ProductDA;
-import da.UnitOfMeasureDA;
+import da.UserDA;
+//import da.WarehouseDA;
 import dataobject.Category;
 
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 
-public class UnitOfMeasureList extends JFrame implements ActionListener{
-	public static JTable tableUnit;
-	private JPanel contentPane;
+public class UserList extends JFrame implements ActionListener{
 
-	UnitOfMeasureDA unitDA;
+	private JPanel contentPane;
+	public static JTable tableUser;
+	UserDA userDA;
 	private JPanel panelTop;
 	private JButton btnUpdate;
 	private JButton btnAdd;
-	
-
 
 	/**
 	 * Launch the application.
@@ -44,7 +42,7 @@ public class UnitOfMeasureList extends JFrame implements ActionListener{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UnitOfMeasureList frame = new UnitOfMeasureList();
+					UserList frame = new UserList();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -56,8 +54,8 @@ public class UnitOfMeasureList extends JFrame implements ActionListener{
 	/**
 	 * Create the frame.
 	 */
-	public UnitOfMeasureList() {
-		setTitle("Unit of Measure Management");
+	public UserList() {
+		setTitle("User Management");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -67,9 +65,9 @@ public class UnitOfMeasureList extends JFrame implements ActionListener{
 		
 		JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, BorderLayout.CENTER);
-		tableUnit = new JTable();
-		getUnitList();
-		scrollPane.setViewportView(tableUnit);
+		tableUser = new JTable();
+		getUserList();
+		scrollPane.setViewportView(tableUser);
 		
 		panelTop = new JPanel();
 		panelTop.setPreferredSize(new Dimension(200, 30));
@@ -87,38 +85,37 @@ public class UnitOfMeasureList extends JFrame implements ActionListener{
 		panelTop.add(btnUpdate);
 	}
 
-	private void getUnitList() {
-		unitDA = new UnitOfMeasureDA();
-		DefaultTableModel model = unitDA.getUnits1();
-		tableUnit.setModel(model);
+	private void getUserList() {
+		userDA = new UserDA();
+		DefaultTableModel model = userDA.getUser1();
+		tableUser.setModel(model);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnAdd){
-			addUnit();
-			
+			addUser();
 		}else if(e.getSource() == btnUpdate){
-			updateUnit();
+			updateUser();
 		}
 		
 	}
 
-	private void updateUnit() {
+	private void updateUser() {
 		
-		int selectedRowIndex = tableUnit.getSelectedRow();
+		int selectedRowIndex = tableUser.getSelectedRow();
 		if(selectedRowIndex != -1){ 
-			int selectedunitID = (int) tableUnit.getModel().getValueAt(selectedRowIndex, 0);
-			UpdateUnitOfMeasure updateGUI = new UpdateUnitOfMeasure(selectedunitID);
+			int selectedusID = (int) tableUser.getModel().getValueAt(selectedRowIndex, 0);
+			UpdateUser updateGUI = new UpdateUser(selectedusID);
 			updateGUI.setVisible(true);
-		
+			
 			
 		}
 				
 	}
 
-	private void addUnit() {
-		AddUnitofmeasure addGui = new AddUnitofmeasure();
+	private void addUser() {
+		AddUser addGui = new AddUser();
 		addGui.setVisible(true);
 		
 		

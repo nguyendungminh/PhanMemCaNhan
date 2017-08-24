@@ -22,24 +22,29 @@ import da.BrandDA;
 import da.CategoryDA;
 import da.ProductDA;
 import da.UnitOfMeasureDA;
+import da.UserDA;
+//import da.WarehouseDA;
 import dataobject.Brand;
 import dataobject.Category;
 import dataobject.UnitOfMeasure;
-import gui.UnitOfMeasureList;
+import gui.UserList;;
 
-public class AddUnitofmeasure extends JFrame implements ActionListener {
+public class AddUser extends JFrame implements ActionListener {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtName;
+	private JTextField txtUsername;
+	private JTextField txtPassword;
 	
 	private ProductDA productDA;
 	private CategoryDA catDA;
 	private BrandDA brandDA;
 	private UnitOfMeasureDA unitDA;
+//	private WarehouseDA warehousrDA;
+	private UserDA userDA;
 	
 	private JButton btnAdd;
 	private JButton btnCancel;
@@ -51,7 +56,7 @@ public class AddUnitofmeasure extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AddUnitofmeasure frame = new AddUnitofmeasure();
+					AddUser frame = new AddUser();
 					frame.setVisible(true);
 					
 				} catch (Exception e) {
@@ -64,18 +69,20 @@ public class AddUnitofmeasure extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public AddUnitofmeasure() {
+	public AddUser() {
 		productDA = new ProductDA();
 		catDA = new CategoryDA();
 		brandDA = new BrandDA();
 		unitDA = new UnitOfMeasureDA();
+//		warehousrDA = new WarehouseDA();
+		userDA = new UserDA();
 		
 		initGUI();
 	}
 
 	private void initGUI() {
 		setResizable(false);
-		setTitle("Add Unit of Measure - Thanh Phuc");
+		setTitle("Add User - Thanh Phuc");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 339, 346);
 		contentPane = new JPanel();
@@ -83,17 +90,27 @@ public class AddUnitofmeasure extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblName = new JLabel("Name");
+		JLabel lblName = new JLabel("User Name");
 		lblName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblName.setBounds(24, 133, 103, 23);
+		lblName.setBounds(22, 86, 103, 23);
 		contentPane.add(lblName);
 		
-		txtName = new JTextField();
-		txtName.setBounds(137, 136, 173, 20);
-		contentPane.add(txtName);
-		txtName.setColumns(10);
+		txtUsername = new JTextField();
+		txtUsername.setBounds(135, 89, 173, 20);
+		contentPane.add(txtUsername);
+		txtUsername.setColumns(10);
 		
-		JLabel lblAddProduct = new JLabel("Add Unit");
+		JLabel lbDescription = new JLabel("Password");
+		lbDescription.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lbDescription.setBounds(22, 139, 74, 14);
+		contentPane.add(lbDescription);
+		
+		txtPassword = new JTextField();
+		txtPassword.setColumns(10);
+		txtPassword.setBounds(134, 136, 173, 20);
+		contentPane.add(txtPassword);
+		
+		JLabel lblAddProduct = new JLabel("Add user");
 		lblAddProduct.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAddProduct.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblAddProduct.setBounds(60, 30, 229, 33);
@@ -108,29 +125,33 @@ public class AddUnitofmeasure extends JFrame implements ActionListener {
 		btnCancel.setBounds(179, 243, 89, 23);
 		contentPane.add(btnCancel);
 		btnCancel.addActionListener(this);
-		
+		//Vector<Category> catList = catDA.getAllCategories();
+		//Vector<UnitOfMeasure>unitList = unitDA.getUnitOfMeasure();
+		//Vector<Brand> brandList = brandDA.getBrands();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnAdd){
-			addUnit();
-			unitDA.getUnitOfMeasure();
+			addUser();
+			userDA.getAllUsers();
 			JOptionPane.showMessageDialog(this,"add completed");
 			
-		unitDA = new UnitOfMeasureDA();
-		DefaultTableModel model = unitDA.getUnits1();
-			gui.UnitOfMeasureList.tableUnit.setModel(model);
+			userDA = new UserDA();
+			DefaultTableModel model = userDA.getUser1();
+			gui.UserList.tableUser.setModel(model);
 			
 		}else if(e.getSource() == btnCancel){
-			AddUnitofmeasure.this.dispose();
+			AddUser.this.dispose();
 		}
 		
 	}
 
-	private void addUnit() {
-		String Name = txtName.getText();
-		//String Description = txtDescription.getText();
-		unitDA.insert(Name);
+	private void addUser() {
+		String Username = txtUsername.getText();
+		
+		String Password = txtPassword.getText();
+		
+		userDA.insert(Username, Password);
 	}
 }

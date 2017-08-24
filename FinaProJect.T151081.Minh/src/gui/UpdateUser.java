@@ -21,28 +21,34 @@ import da.BrandDA;
 import da.CategoryDA;
 import da.ProductDA;
 import da.UnitOfMeasureDA;
+import da.UserDA;
+//import da.WarehouseDA;
 import dataobject.Brand;
 import dataobject.Category;
 import dataobject.Product;
 import dataobject.UnitOfMeasure;
-import gui.UnitOfMeasureList;
-
-public class UpdateUnitOfMeasure extends JFrame implements ActionListener {
+import dataobject.User;
+//import dataobject.Warehouse;
+import gui.UserList;
+public class UpdateUser extends JFrame implements ActionListener {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtName;
+	private JTextField txtUsername;
+	private JTextField txtPassword;
 	
-	
-	private UnitOfMeasureDA unitDA;
+	//private ProductDA productDA;
+	//private CategoryDA catDA;
+	private UserDA userDA;;
+	//private UnitOfMeasureDA unitDA;
 	
 	private JButton btnUpdate;
 	private JButton btnCancel;
 
-	public int unitID = 1;
+	public int usID = 1;
 	/**
 	 * Launch the application.
 	 */
@@ -50,7 +56,7 @@ public class UpdateUnitOfMeasure extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UpdateUnitOfMeasure frame = new UpdateUnitOfMeasure(1);
+					UpdateUser frame = new UpdateUser(1);
 					
 					frame.setVisible(true);
 					
@@ -65,24 +71,28 @@ public class UpdateUnitOfMeasure extends JFrame implements ActionListener {
 	 * Create the frame.
 	 * @param selectedProductID 
 	 */
-	public UpdateUnitOfMeasure(int uid) {
-		unitID = uid;
-		
-		unitDA = new UnitOfMeasureDA();
+	public UpdateUser(int usid) {
+		usID = usid;
+		//productDA = new ProductDA();
+		//catDA = new CategoryDA();
+		userDA = new UserDA();
+		//unitDA = new UnitOfMeasureDA();
 		
 		initGUI();
 		
 		
-		UnitOfMeasure u = unitDA.getUnit(uid);
-		txtName.setText(u.getName());
-	
+		User us = userDA.getUser(usID);
+		txtUsername.setText(us.getName());
+		txtPassword.setText(us.getPassword());
+		
+		
 		
 		
 	}
 
 	private void initGUI() {
 		setResizable(false);
-		setTitle("Update Unit of Measure");
+		setTitle("Update User - ThanhPhuc");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 339, 346);
 		contentPane = new JPanel();
@@ -90,17 +100,27 @@ public class UpdateUnitOfMeasure extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblName = new JLabel("Name");
+		JLabel lblName = new JLabel("User Name");
 		lblName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblName.setBounds(25, 139, 102, 20);
+		lblName.setBounds(26, 88, 102, 20);
 		contentPane.add(lblName);
 		
-		txtName = new JTextField();
-		txtName.setBounds(137, 141, 173, 20);
-		contentPane.add(txtName);
-		txtName.setColumns(10);
+		txtUsername = new JTextField();
+		txtUsername.setBounds(138, 90, 173, 20);
+		contentPane.add(txtUsername);
+		txtUsername.setColumns(10);
 		
-		JLabel lblAddProduct = new JLabel("Update Unit");
+		JLabel lbProductCode = new JLabel("Password");
+		lbProductCode.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lbProductCode.setBounds(26, 144, 89, 14);
+		contentPane.add(lbProductCode);
+		
+		txtPassword = new JTextField();
+		txtPassword.setColumns(10);
+		txtPassword.setBounds(138, 143, 173, 20);
+		contentPane.add(txtPassword);
+		
+		JLabel lblAddProduct = new JLabel("Update User");
 		lblAddProduct.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAddProduct.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblAddProduct.setBounds(56, 27, 230, 30);
@@ -115,29 +135,32 @@ public class UpdateUnitOfMeasure extends JFrame implements ActionListener {
 		btnCancel.setBounds(180, 241, 89, 23);
 		contentPane.add(btnCancel);
 		btnCancel.addActionListener(this);
-		
+		//Vector<Category> catList = catDA.getAllCategories();
+		//Vector<UnitOfMeasure>unitList = unitDA.getUnitOfMeasure();
+		//Vector<Brand> brandList = brandDA.getBrands();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnUpdate){
-			updateUnit();
-			unitDA.getUnitOfMeasure();
+			updateUser();
+			userDA.getAllUsers();
 			JOptionPane.showMessageDialog(this,"updated completed");
 			
-			unitDA = new UnitOfMeasureDA();
-			DefaultTableModel model = unitDA.getUnits1();
-			gui.UnitOfMeasureList.tableUnit.setModel(model);
+			userDA = new UserDA();
+			DefaultTableModel model = userDA.getUser1();
+			gui.UserList.tableUser.setModel(model);
 		}else if(e.getSource() == btnCancel){
-			UpdateUnitOfMeasure.this.dispose();
+			UpdateUser.this.dispose();
 		}
 		
 	}
 
-	private void updateUnit() {
-		String Name = txtName.getText();
-		unitDA.update(Name, unitID);
+	private void updateUser() {
+		String Name = txtUsername.getText();
+	
+		String Password = txtPassword.getText();
 		
-		
+		userDA.update(Name, Password, usID);
 	}
 }

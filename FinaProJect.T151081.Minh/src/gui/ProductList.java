@@ -26,7 +26,6 @@ public class ProductList extends JFrame implements ActionListener{
 	private JPanel panelTop;
 	private JButton btnUpdate;
 	private JButton btnAdd;
-	private JButton btnCategory;
 
 	/** 
 	 * Launch the application.
@@ -76,19 +75,6 @@ public class ProductList extends JFrame implements ActionListener{
 		btnUpdate.setBounds(133, 0, 123, 23);
 		btnUpdate.addActionListener(this);
 		panelTop.add(btnUpdate);
-		
-		btnCategory = new JButton("Category");
-		btnCategory.setBounds(266, 0, 123, 23);
-		btnCategory.addActionListener(this);
-		panelTop.add(btnCategory);
-		
-		JButton btnBrand = new JButton("Brand");
-		btnBrand.setBounds(399, 0, 123, 23);
-		panelTop.add(btnBrand);
-		
-		JButton btnMeasure = new JButton("UnitofMeasure");
-		btnMeasure.setBounds(532, 0, 123, 23);
-		panelTop.add(btnMeasure);
 	}
 
 	public void getProductList() {
@@ -103,9 +89,7 @@ public class ProductList extends JFrame implements ActionListener{
 			
 		}else if(e.getSource() == btnUpdate){
 			updateProduct();
-		}else if (e.getSource()==btnCategory) {
-			
-			new CategoryList().setVisible(true);
+		
 		}
 	}
 	

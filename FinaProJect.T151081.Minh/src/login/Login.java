@@ -54,10 +54,6 @@ public class Login extends JFrame {
 		lblPassword.setBounds(30, 116, 80, 14);
 		getContentPane().add(lblPassword);
 
-		JCheckBox chckbxRememberMe = new JCheckBox("Remember Me");
-		chckbxRememberMe.setBounds(30, 168, 97, 23);
-		getContentPane().add(chckbxRememberMe);
-
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			// nut login

@@ -25,14 +25,14 @@ public class WHConnection {
 
 		ResultSetMetaData metaData = rs.getMetaData();
 
-		// tên cột - trường dữ liệu
+	
 		Vector<String> columnNames = new Vector<String>();
 		int columnCount = metaData.getColumnCount();
 		for (int column = 1; column <= columnCount; column++) {
 			columnNames.add(metaData.getColumnName(column));
 		}
 
-		// các dòng dữ liệu, gồm nhiều dòng, mỗi dòng gồm nhiều trường (kiểu object)
+		
 		Vector<Vector<Object>> data = new Vector<Vector<Object>>();
 		while (rs.next()) {
 			Vector<Object> row = new Vector<Object>();

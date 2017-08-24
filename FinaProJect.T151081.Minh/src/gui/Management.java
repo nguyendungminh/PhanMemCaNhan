@@ -16,6 +16,7 @@ public class Management extends JFrame {
 	private JButton btnProduct;
 	private JButton btnCategory;
 	private JButton btnBrand;
+	private JButton btnUnitofMeasure;
 
 	/**
 	 * Launch the application.
@@ -78,6 +79,17 @@ public class Management extends JFrame {
 		});
 		btnBrand.setBounds(10, 79, 155, 23);
 		contentPane.add(btnBrand);
+		
+		btnUnitofMeasure = new JButton("UnitOfMeasure");
+		btnUnitofMeasure.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()== btnUnitofMeasure){
+					new UnitOfMeasureList().setVisible(true);
+				}
+			}
+		});
+		btnUnitofMeasure.setBounds(10, 113, 155, 23);
+		contentPane.add(btnUnitofMeasure);
 	}
 		
 	

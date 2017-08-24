@@ -80,7 +80,7 @@ public class AddProduct extends JFrame implements ActionListener {
 
 	private void initGUI() {
 		setResizable(false);
-		setTitle("Add Product - Huyen");
+		setTitle("Add Product");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 339, 346);
 		contentPane = new JPanel();

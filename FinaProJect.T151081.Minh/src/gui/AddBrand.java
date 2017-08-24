@@ -28,7 +28,7 @@ import dataobject.Category;
 import dataobject.UnitOfMeasure;
 import gui.CategoryList;
 
-public class AddCategory extends JFrame implements ActionListener {
+public class AddBrand extends JFrame implements ActionListener {
 
 	/**
 	 * 
@@ -37,7 +37,7 @@ public class AddCategory extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private JTextField txtName;
 	private JTextField txtDescription;
-	private JComboBox<Category> cmbCategory;
+	private JComboBox<Brand> cmbBrand;
 	private ProductDA productDA;
 	private CategoryDA catDA;
 	private BrandDA brandDA;
@@ -53,7 +53,7 @@ public class AddCategory extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AddCategory frame = new AddCategory();
+					AddBrand frame = new AddBrand();
 					frame.setVisible(true);
 					
 				} catch (Exception e) {
@@ -66,7 +66,7 @@ public class AddCategory extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public AddCategory() {
+	public AddBrand() {
 		productDA = new ProductDA();
 		catDA = new CategoryDA();
 		brandDA = new BrandDA();
@@ -77,7 +77,7 @@ public class AddCategory extends JFrame implements ActionListener {
 
 	private void initGUI() {
 		setResizable(false);
-		setTitle("Add Category");
+		setTitle("Add Brand");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 339, 346);
 		contentPane = new JPanel();
@@ -85,7 +85,7 @@ public class AddCategory extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblName = new JLabel("Category Name");
+		JLabel lblName = new JLabel("Brand Name");
 		lblName.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblName.setBounds(21, 99, 103, 23);
 		contentPane.add(lblName);
@@ -105,7 +105,7 @@ public class AddCategory extends JFrame implements ActionListener {
 		txtDescription.setBounds(134, 163, 173, 20);
 		contentPane.add(txtDescription);
 		
-		JLabel lblAddProduct = new JLabel("Add Category");
+		JLabel lblAddProduct = new JLabel("AddBrand");
 		lblAddProduct.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAddProduct.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblAddProduct.setBounds(60, 30, 229, 33);
@@ -126,23 +126,23 @@ public class AddCategory extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnAdd){
-			addCategory();
-			catDA.getCategories();
+			addBrand();
+			brandDA.getBrands();
 			JOptionPane.showMessageDialog(this,"add completed");
 			
-			catDA = new CategoryDA();
-			DefaultTableModel model = catDA.getCategories1();
-			gui.CategoryList.tableCategory.setModel(model);
+			brandDA = new BrandDA();
+			DefaultTableModel model = brandDA.getBrand1();
+			gui.BrandList.tableBrand.setModel(model);
 			
 		}else if(e.getSource() == btnCancel){
-			AddCategory.this.dispose();
+			AddBrand.this.dispose();
 		}
 		
 	}
 
-	private void addCategory() {
-		String categoryName = txtName.getText();
-		String categoryDescription = txtDescription.getText();
-		catDA.insert(categoryName, categoryDescription);
+	private void addBrand() {
+		String Name = txtName.getText();
+		String description = txtDescription.getText();
+		brandDA.insert(Name, description);
 	}
 }

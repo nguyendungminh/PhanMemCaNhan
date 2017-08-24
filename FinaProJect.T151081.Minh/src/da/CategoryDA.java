@@ -23,8 +23,10 @@ public class CategoryDA extends WHConnection {
 				ResultSet rs = stmt.executeQuery(sql)) {
 
 			while (rs.next()) {
-				Category cat = new Category(rs.getInt("id"), rs.getString("categoryname"), rs.getString("description"));
-				categoryList.add(cat);
+				Category cat = new Category(rs.getInt("id"),
+						rs.getString("categoryname"),
+						rs.getString("description"));
+						categoryList.add(cat);
 			}
 			return categoryList;
 		} catch (SQLException e) {

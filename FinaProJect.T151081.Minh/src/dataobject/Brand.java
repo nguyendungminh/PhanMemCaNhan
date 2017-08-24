@@ -3,16 +3,14 @@ package dataobject;
 public class Brand {
 	private int id;
 	private String name;
+	private String description;
 	
 	public Brand(){}
-	public Brand(int id, String name) {
+	public Brand(int id, String name,String description) {
 		super();
 		this.id = id;
 		this.name = name;
-	}
-	@Override
-	public String toString() {
-		return name;
+		this.description= description;
 	}
 	public int getId() {
 		return id;
@@ -25,6 +23,16 @@ public class Brand {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	@Override
+	public String toString() {
+		return  name+ description;
 	}
 	
 

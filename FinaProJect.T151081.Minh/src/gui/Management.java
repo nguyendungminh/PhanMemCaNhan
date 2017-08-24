@@ -15,6 +15,7 @@ public class Management extends JFrame {
 	private JPanel contentPane;
 	private JButton btnProduct;
 	private JButton btnCategory;
+	private JButton btnBrand;
 
 	/**
 	 * Launch the application.
@@ -66,6 +67,17 @@ public class Management extends JFrame {
 		});
 		btnCategory.setBounds(10, 45, 155, 23);
 		contentPane.add(btnCategory);
+		
+		btnBrand = new JButton("Brand");
+		btnBrand.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()==btnBrand){
+					new BrandList().setVisible(true);
+				}
+			}
+		});
+		btnBrand.setBounds(10, 79, 155, 23);
+		contentPane.add(btnBrand);
 	}
 		
 	

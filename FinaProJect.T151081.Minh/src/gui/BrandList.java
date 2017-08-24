@@ -25,11 +25,11 @@ import dataobject.Category;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 
-public class BrandList extends JFrame implements ActionListener{
+public class BrandList extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	public static JTable tableBrand;
-	
+
 	CategoryDA categoryDA;
 	BrandDA brandDA;
 	private JPanel panelTop;
@@ -63,23 +63,23 @@ public class BrandList extends JFrame implements ActionListener{
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		tableBrand = new JTable();
 		getBrandList();
 		scrollPane.setViewportView(tableBrand);
-		
+
 		panelTop = new JPanel();
 		panelTop.setPreferredSize(new Dimension(200, 30));
 		panelTop.setLayout(null);
 		contentPane.add(panelTop, BorderLayout.NORTH);
-		
+
 		btnAdd = new JButton("Add");
 		btnAdd.setBounds(0, 0, 93, 23);
 		btnAdd.addActionListener(this);
 		panelTop.add(btnAdd);
-		
+
 		btnUpdate = new JButton("Update");
 		btnUpdate.setBounds(103, 0, 113, 23);
 		btnUpdate.addActionListener(this);
@@ -94,33 +94,30 @@ public class BrandList extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == btnAdd){
+		if (e.getSource() == btnAdd) {
 			AddBrand();
-			
-			
-		}else if(e.getSource() == btnUpdate){
+
+		} else if (e.getSource() == btnUpdate) {
 			UpdateBrand();
 		}
-		
+
 	}
 
 	private void UpdateBrand() {
-		
+
 		int selectedRowIndex = tableBrand.getSelectedRow();
-		if(selectedRowIndex != -1){ 
+		if (selectedRowIndex != -1) {
 			int selectedBraID = (int) tableBrand.getModel().getValueAt(selectedRowIndex, 0);
 			UpdateBrand updateGUI = new UpdateBrand(selectedBraID);
 			updateGUI.setVisible(true);
-			
-			
+
 		}
-				
+
 	}
 
 	private void AddBrand() {
 		AddBrand addGui = new AddBrand();
 		addGui.setVisible(true);
-		
-		
+
 	}
 }

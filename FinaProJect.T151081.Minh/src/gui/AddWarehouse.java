@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -22,32 +23,31 @@ import da.BrandDA;
 import da.CategoryDA;
 import da.ProductDA;
 import da.UnitOfMeasureDA;
-import da.UserDA;
-//import da.WarehouseDA;
+import da.WarehouseDA;
 import dataobject.Brand;
 import dataobject.Category;
 import dataobject.UnitOfMeasure;
-import gui.UserList;;
+import gui.WarehouseList;
 
-public class AddUser extends JFrame implements ActionListener {
+public class AddWarehouse extends JFrame implements ActionListener {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtUsername;
-	private JTextField txtPassword;
-	
+	private JTextField txtName;
+	private JTextField txtDescription;
+	public static JTable tableWarehouse;
 	private ProductDA productDA;
 	private CategoryDA catDA;
 	private BrandDA brandDA;
 	private UnitOfMeasureDA unitDA;
-//	private WarehouseDA warehousrDA;
-	private UserDA userDA;
+	private WarehouseDA warehousrDA;
 	
 	private JButton btnAdd;
 	private JButton btnCancel;
+	private JTextField txtAddress;
 
 	/**
 	 * Launch the application.
@@ -56,7 +56,7 @@ public class AddUser extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AddUser frame = new AddUser();
+					AddWarehouse frame = new AddWarehouse();
 					frame.setVisible(true);
 					
 				} catch (Exception e) {
@@ -69,20 +69,19 @@ public class AddUser extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public AddUser() {
+	public AddWarehouse() {
 		productDA = new ProductDA();
 		catDA = new CategoryDA();
 		brandDA = new BrandDA();
 		unitDA = new UnitOfMeasureDA();
-//		warehousrDA = new WarehouseDA();
-		userDA = new UserDA();
+		warehousrDA = new WarehouseDA();
 		
 		initGUI();
 	}
 
 	private void initGUI() {
 		setResizable(false);
-		setTitle("Add User");
+		setTitle("Add Warehouse");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 339, 346);
 		contentPane = new JPanel();
@@ -90,27 +89,27 @@ public class AddUser extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblName = new JLabel("User Name");
+		JLabel lblName = new JLabel("Name");
 		lblName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblName.setBounds(22, 86, 103, 23);
+		lblName.setBounds(22, 74, 103, 23);
 		contentPane.add(lblName);
 		
-		txtUsername = new JTextField();
-		txtUsername.setBounds(135, 89, 173, 20);
-		contentPane.add(txtUsername);
-		txtUsername.setColumns(10);
+		txtName = new JTextField();
+		txtName.setBounds(135, 77, 173, 20);
+		contentPane.add(txtName);
+		txtName.setColumns(10);
 		
-		JLabel lbDescription = new JLabel("Password");
+		JLabel lbDescription = new JLabel("Description");
 		lbDescription.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lbDescription.setBounds(22, 139, 74, 14);
+		lbDescription.setBounds(22, 166, 74, 14);
 		contentPane.add(lbDescription);
 		
-		txtPassword = new JTextField();
-		txtPassword.setColumns(10);
-		txtPassword.setBounds(134, 136, 173, 20);
-		contentPane.add(txtPassword);
+		txtDescription = new JTextField();
+		txtDescription.setColumns(10);
+		txtDescription.setBounds(134, 163, 173, 20);
+		contentPane.add(txtDescription);
 		
-		JLabel lblAddProduct = new JLabel("Add user");
+		JLabel lblAddProduct = new JLabel("Add Warehouse");
 		lblAddProduct.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAddProduct.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblAddProduct.setBounds(60, 30, 229, 33);
@@ -124,6 +123,16 @@ public class AddUser extends JFrame implements ActionListener {
 		btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(179, 243, 89, 23);
 		contentPane.add(btnCancel);
+		
+		JLabel lblAddress = new JLabel("Address");
+		lblAddress.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblAddress.setBounds(22, 121, 74, 14);
+		contentPane.add(lblAddress);
+		
+		txtAddress = new JTextField();
+		txtAddress.setColumns(10);
+		txtAddress.setBounds(134, 118, 173, 20);
+		contentPane.add(txtAddress);
 		btnCancel.addActionListener(this);
 		//Vector<Category> catList = catDA.getAllCategories();
 		//Vector<UnitOfMeasure>unitList = unitDA.getUnitOfMeasure();
@@ -133,25 +142,25 @@ public class AddUser extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnAdd){
-			addUser();
-			userDA.getAllUsers();
+			addWarehouse();
+			warehousrDA.getAllWarehouses();
 			JOptionPane.showMessageDialog(this,"add completed");
 			
-			userDA = new UserDA();
-			DefaultTableModel model = userDA.getUser1();
-			gui.UserList.tableUser.setModel(model);
+			warehousrDA = new WarehouseDA();
+			DefaultTableModel model = warehousrDA.getWarehouse1();
+			gui.WarehouseList.tableWarehouse.setModel(model);
 			
 		}else if(e.getSource() == btnCancel){
-			AddUser.this.dispose();
+			AddWarehouse.this.dispose();
 		}
 		
 	}
 
-	private void addUser() {
-		String Username = txtUsername.getText();
+	private void addWarehouse() {
+		String Name = txtName.getText();
+		String Address = txtAddress.getText();
+		String Description = txtDescription.getText();
 		
-		String Password = txtPassword.getText();
-		
-		userDA.insert(Username, Password);
+		warehousrDA.insert(Name, Address, Description);
 	}
 }

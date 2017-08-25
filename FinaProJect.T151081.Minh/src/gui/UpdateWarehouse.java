@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -21,34 +22,34 @@ import da.BrandDA;
 import da.CategoryDA;
 import da.ProductDA;
 import da.UnitOfMeasureDA;
-import da.UserDA;
-//import da.WarehouseDA;
+import da.WarehouseDA;
 import dataobject.Brand;
 import dataobject.Category;
 import dataobject.Product;
 import dataobject.UnitOfMeasure;
-import dataobject.User;
-//import dataobject.Warehouse;
-import gui.UserList;
-public class UpdateUser extends JFrame implements ActionListener {
+import dataobject.Warehouse;
+
+public class UpdateWarehouse extends JFrame implements ActionListener {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtUsername;
-	private JTextField txtPassword;
-	
+	private JTextField txtName;
+	private JTextField txtDescription;
+	public static JTable tableWarehouse;
 	//private ProductDA productDA;
 	//private CategoryDA catDA;
-	private UserDA userDA;;
+	private WarehouseDA wareDA;;
 	//private UnitOfMeasureDA unitDA;
 	
 	private JButton btnUpdate;
 	private JButton btnCancel;
 
-	public int usID = 1;
+	public int wareID = 1;
+	private JLabel lblAddress;
+	private JTextField txtAddress;
 	/**
 	 * Launch the application.
 	 */
@@ -56,7 +57,7 @@ public class UpdateUser extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UpdateUser frame = new UpdateUser(1);
+					UpdateWarehouse frame = new UpdateWarehouse(1);
 					
 					frame.setVisible(true);
 					
@@ -71,19 +72,20 @@ public class UpdateUser extends JFrame implements ActionListener {
 	 * Create the frame.
 	 * @param selectedProductID 
 	 */
-	public UpdateUser(int usid) {
-		usID = usid;
+	public UpdateWarehouse(int wid) {
+		wareID = wid;
 		//productDA = new ProductDA();
 		//catDA = new CategoryDA();
-		userDA = new UserDA();
+		wareDA = new WarehouseDA();
 		//unitDA = new UnitOfMeasureDA();
 		
 		initGUI();
 		
 		
-		User us = userDA.getUser(usID);
-		txtUsername.setText(us.getName());
-		txtPassword.setText(us.getPassword());
+		Warehouse w = wareDA.getWarehouse(wareID);
+		txtName.setText(w.getName());
+		txtDescription.setText(w.getDescription());
+		txtAddress.setText(w.getAddress());
 		
 		
 		
@@ -92,7 +94,7 @@ public class UpdateUser extends JFrame implements ActionListener {
 
 	private void initGUI() {
 		setResizable(false);
-		setTitle("Update User");
+		setTitle("Update Warehouse");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 339, 346);
 		contentPane = new JPanel();
@@ -100,27 +102,38 @@ public class UpdateUser extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblName = new JLabel("User Name");
+		JLabel lblName = new JLabel("Name");
 		lblName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblName.setBounds(26, 88, 102, 20);
+		lblName.setBounds(26, 68, 102, 20);
 		contentPane.add(lblName);
 		
-		txtUsername = new JTextField();
-		txtUsername.setBounds(138, 90, 173, 20);
-		contentPane.add(txtUsername);
-		txtUsername.setColumns(10);
+		txtName = new JTextField();
+		txtName.setBounds(138, 70, 173, 20);
+		contentPane.add(txtName);
+		txtName.setColumns(10);
 		
-		JLabel lbProductCode = new JLabel("Password");
+		JLabel lbProductCode = new JLabel("Description");
 		lbProductCode.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lbProductCode.setBounds(26, 144, 89, 14);
+		lbProductCode.setBounds(26, 171, 89, 14);
 		contentPane.add(lbProductCode);
 		
-		txtPassword = new JTextField();
-		txtPassword.setColumns(10);
-		txtPassword.setBounds(138, 143, 173, 20);
-		contentPane.add(txtPassword);
+		txtDescription = new JTextField();
+		txtDescription.setColumns(10);
+		txtDescription.setBounds(138, 170, 173, 20);
+		contentPane.add(txtDescription);
 		
-		JLabel lblAddProduct = new JLabel("Update User");
+		lblAddress = new JLabel("Address");
+		lblAddress.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblAddress.setBounds(26, 114, 89, 14);
+		contentPane.add(lblAddress);
+		
+		txtAddress = new JTextField();
+		txtAddress.setText((String) null);
+		txtAddress.setColumns(10);
+		txtAddress.setBounds(138, 113, 173, 20);
+		contentPane.add(txtAddress);
+		
+		JLabel lblAddProduct = new JLabel("Update Warehouse");
 		lblAddProduct.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAddProduct.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblAddProduct.setBounds(56, 27, 230, 30);
@@ -143,24 +156,24 @@ public class UpdateUser extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnUpdate){
-			updateUser();
-			userDA.getAllUsers();
+			updateWarehouse();
+			wareDA.getAllWarehouses();
 			JOptionPane.showMessageDialog(this,"updated completed");
 			
-			userDA = new UserDA();
-			DefaultTableModel model = userDA.getUser1();
-			gui.UserList.tableUser.setModel(model);
+			wareDA = new WarehouseDA();
+			DefaultTableModel model = wareDA.getWarehouse1();
+			gui.WarehouseList.tableWarehouse.setModel(model);
 		}else if(e.getSource() == btnCancel){
-			UpdateUser.this.dispose();
+			UpdateWarehouse.this.dispose();
 		}
 		
 	}
 
-	private void updateUser() {
-		String Name = txtUsername.getText();
-	
-		String Password = txtPassword.getText();
+	private void updateWarehouse() {
+		String Name = txtName.getText();
+		String Address = txtAddress.getText();
+		String Description = txtDescription.getText();
 		
-		userDA.update(Name, Password, usID);
+		wareDA.update(Name, Address, Description, wareID);
 	}
 }

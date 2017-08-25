@@ -77,6 +77,7 @@ public class Login extends JFrame {
 					}
 					if (count == 1) {
 						new Management().setVisible(true);
+						Login.this.setVisible(false);
 					} else if (count > 1) {
 						JOptionPane.showMessageDialog(null, "kthanhcong");
 					} else {
@@ -97,11 +98,11 @@ public class Login extends JFrame {
 		// login();
 		// }
 		// });
-		btnLogin.setBounds(64, 202, 89, 23);
+		btnLogin.setBounds(56, 188, 97, 37);
 		getContentPane().add(btnLogin);
 
 		JLabel lblLogin = new JLabel("Login");
-		lblLogin.setFont(new Font("VnAachen", Font.PLAIN, 15));
+		lblLogin.setFont(new Font("Harlow Solid Italic", Font.PLAIN, 30));
 		lblLogin.setBackground(Color.BLUE);
 		lblLogin.setBounds(71, 21, 109, 25);
 		getContentPane().add(lblLogin);
@@ -144,8 +145,8 @@ public class Login extends JFrame {
 
 	}
 
-	private void login() {
-		
+	// private void login() {
+	//
 	// String userName = txtUsername.getText();
 	// char[] passArray = txtPassword.getPassword();
 	// String password = new String(passArray);
@@ -157,5 +158,5 @@ public class Login extends JFrame {
 	// JOptionPane.showMessageDialog(Login.this, ("sai password" + password));
 	// }
 	// }
-	}
+	// }
 }

@@ -16,39 +16,43 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.DefaultHighlighter.DefaultHighlightPainter;
 
 import da.BrandDA;
 import da.CategoryDA;
+import da.DepartmentDA;
 import da.ProductDA;
 import da.UnitOfMeasureDA;
 import da.UserDA;
-//import da.WarehouseDA;
+import da.WarehouseDA;
 import dataobject.Brand;
 import dataobject.Category;
+import dataobject.Department;
 import dataobject.Product;
 import dataobject.UnitOfMeasure;
 import dataobject.User;
-//import dataobject.Warehouse;
-import gui.UserList;
-public class UpdateUser extends JFrame implements ActionListener {
+import dataobject.Warehouse;
+import gui.DepartmentList;
+
+public class UpdateDepartment extends JFrame implements ActionListener {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtUsername;
-	private JTextField txtPassword;
+	private JTextField txtDepartmentname;
+	private JTextField txtDescription;
 	
 	//private ProductDA productDA;
 	//private CategoryDA catDA;
-	private UserDA userDA;;
+	private DepartmentDA departmentDA;;
 	//private UnitOfMeasureDA unitDA;
 	
 	private JButton btnUpdate;
 	private JButton btnCancel;
 
-	public int usID = 1;
+	public int deID = 1;
 	/**
 	 * Launch the application.
 	 */
@@ -56,7 +60,7 @@ public class UpdateUser extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UpdateUser frame = new UpdateUser(1);
+					UpdateDepartment frame = new UpdateDepartment(1);
 					
 					frame.setVisible(true);
 					
@@ -71,19 +75,19 @@ public class UpdateUser extends JFrame implements ActionListener {
 	 * Create the frame.
 	 * @param selectedProductID 
 	 */
-	public UpdateUser(int usid) {
-		usID = usid;
+	public UpdateDepartment(int deid) {
+		deID = deid;
 		//productDA = new ProductDA();
 		//catDA = new CategoryDA();
-		userDA = new UserDA();
+		departmentDA = new DepartmentDA();
 		//unitDA = new UnitOfMeasureDA();
 		
 		initGUI();
 		
 		
-		User us = userDA.getUser(usID);
-		txtUsername.setText(us.getName());
-		txtPassword.setText(us.getPassword());
+		Department depart = departmentDA.getDepartment(deID);
+		txtDepartmentname.setText(depart.getDepartmentname());
+		txtDescription.setText(depart.getDescription());
 		
 		
 		
@@ -92,7 +96,7 @@ public class UpdateUser extends JFrame implements ActionListener {
 
 	private void initGUI() {
 		setResizable(false);
-		setTitle("Update User");
+		setTitle("Update Department");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 339, 346);
 		contentPane = new JPanel();
@@ -100,27 +104,27 @@ public class UpdateUser extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblName = new JLabel("User Name");
+		JLabel lblName = new JLabel("Name");
 		lblName.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblName.setBounds(26, 88, 102, 20);
 		contentPane.add(lblName);
 		
-		txtUsername = new JTextField();
-		txtUsername.setBounds(138, 90, 173, 20);
-		contentPane.add(txtUsername);
-		txtUsername.setColumns(10);
+		txtDepartmentname = new JTextField();
+		txtDepartmentname.setBounds(138, 90, 173, 20);
+		contentPane.add(txtDepartmentname);
+		txtDepartmentname.setColumns(10);
 		
-		JLabel lbProductCode = new JLabel("Password");
+		JLabel lbProductCode = new JLabel("Description");
 		lbProductCode.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lbProductCode.setBounds(26, 144, 89, 14);
 		contentPane.add(lbProductCode);
 		
-		txtPassword = new JTextField();
-		txtPassword.setColumns(10);
-		txtPassword.setBounds(138, 143, 173, 20);
-		contentPane.add(txtPassword);
+		txtDescription = new JTextField();
+		txtDescription.setColumns(10);
+		txtDescription.setBounds(138, 143, 173, 20);
+		contentPane.add(txtDescription);
 		
-		JLabel lblAddProduct = new JLabel("Update User");
+		JLabel lblAddProduct = new JLabel("Update Department");
 		lblAddProduct.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAddProduct.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblAddProduct.setBounds(56, 27, 230, 30);
@@ -143,24 +147,24 @@ public class UpdateUser extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnUpdate){
-			updateUser();
-			userDA.getAllUsers();
+			updateDepartment();
+			departmentDA.getAllDepartments();
 			JOptionPane.showMessageDialog(this,"updated completed");
 			
-			userDA = new UserDA();
-			DefaultTableModel model = userDA.getUser1();
-			gui.UserList.tableUser.setModel(model);
+			departmentDA = new DepartmentDA();
+			DefaultTableModel model = departmentDA.getDepartment1();
+			gui.DepartmentList.tableDepartment.setModel(model);
 		}else if(e.getSource() == btnCancel){
-			UpdateUser.this.dispose();
+			UpdateDepartment.this.dispose();
 		}
 		
 	}
 
-	private void updateUser() {
-		String Name = txtUsername.getText();
+	private void updateDepartment() {
+		String Departmentname = txtDepartmentname.getText();
 	
-		String Password = txtPassword.getText();
+		String Description = txtDescription.getText();
 		
-		userDA.update(Name, Password, usID);
+		departmentDA.update(Departmentname, Description, deID);
 	}
 }

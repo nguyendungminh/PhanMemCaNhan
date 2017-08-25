@@ -75,7 +75,7 @@ public class AddUnitofmeasure extends JFrame implements ActionListener {
 
 	private void initGUI() {
 		setResizable(false);
-		setTitle("Add Unit of Measure - Thanh Phuc");
+		setTitle("Add Unit of Measure");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 339, 346);
 		contentPane = new JPanel();

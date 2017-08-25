@@ -22,7 +22,7 @@ public class SQLiteConnection {
 			//Class.forName("org.sqlite.JDBC");
 			String url = "jdbc:sqlite:foc2warehouse.db";
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:foc2warehouse.db");
-			JOptionPane.showMessageDialog(null, "Connection Successful");
+	//		JOptionPane.showMessageDialog(null, "Connection Successful");
 			return conn;
 		} catch (Exception e) {
 			// TODO: handle exception

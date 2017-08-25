@@ -93,8 +93,10 @@ public class Management extends JFrame {
 		
 		JButton btnUser = new JButton("User");
 		btnUser.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()== btnUser) {
 				new UserList().setVisible(true);
+				}
 			}
 		});
 		btnUser.setBounds(175, 113, 157, 23);

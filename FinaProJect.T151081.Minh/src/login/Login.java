@@ -27,6 +27,8 @@ public class Login extends JFrame {
 	JLabel lblUsername;
 	JTextField txtUsername;
 	private JPasswordField txtPassword;
+	String url;
+   
 
 	// ham dung _ Constructor
 	public Login() {
